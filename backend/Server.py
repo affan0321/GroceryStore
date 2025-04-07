@@ -1,27 +1,134 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask import Flask, jsonify, request,session
+from flask_cors import CORS,cross_origin
 import pyodbc
+from flask_bcrypt import Bcrypt
+from flask_session import Session
+
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+
+CORS(app, supports_credentials=True,origins=["http://localhost:5173"])
+bcrypt = Bcrypt(app)
+
+app.config["SECRET_KEY"] = "2029240f6d1128be89ddc32729463129"  
+app.config["SESSION_TYPE"] = "filesystem"  
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_USE_SIGNER"] = True
+Session(app)
+
 
 # Database Connection
 server = r'DESKTOP-FETP6EU\SQLEXPRESS'
 database = 'GroceryStore'
 driver = '{ODBC Driver 17 for SQL Server}'
 
+
 def get_db_connection():
-    """Establish a connection to the database."""
-    try:
-        return pyodbc.connect(f'DRIVER={driver};SERVER={server};DATABASE={database};Trusted_Connection=yes;')
-    except Exception as e:
-        print(f"Database connection error: {e}")
-        return None
+    conn = pyodbc.connect(
+    "DRIVER={SQL Server};"
+    "SERVER=DESKTOP-FETP6EU\\SQLEXPRESS;"  
+    "DATABASE=GroceryStore;"  
+    "Trusted_Connection=yes;"
+)
+    cursor = conn.cursor()
+    print("Connected successfully!")
+
+    conn.autocommit = True
+    return conn
 
 # ✅ API Home Route
 @app.route('/')
 def home():
     return jsonify({"message": "Welcome to the Grocery Store API!"})
+
+#Signup API
+@app.route('/signup', methods=['POST','OPTIONS'])
+@cross_origin(origin="http://localhost:3000", supports_credentials=True)
+def signup():
+    print("✅ Received request to /signup")
+    if request.method == "OPTIONS":
+        return jsonify({"message": "CORS Preflight OK"}), 200
+    try:
+        data = request.json
+        fullname = data.get("fullname")
+        email = data.get("email")
+        password = data.get("password")  
+        role = data.get("role", "user")  
+
+        if not fullname or not email or not password:
+            return jsonify({"error": "All fields are required"}), 400
+
+        conn = get_db_connection()
+        if not conn:
+            return jsonify({"error": "Database connection failed"}), 500
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT COUNT(*) FROM Users WHERE Email = ?", (email,))
+        if cursor.fetchone()[0] > 0:
+            return jsonify({"error": "Email already exists"}), 400
+
+        cursor.execute("INSERT INTO Users (FullName, Email, PasswordHash, Role) VALUES (?, ?, ?, ?)",
+                       (fullname, email, password, role))
+        conn.commit()
+
+        session["user_id"] = cursor.execute("SELECT UserId FROM Users WHERE Email = ?", (email,)).fetchone()[0]
+        session["email"] = email
+        session["role"] = role
+
+        conn.close()
+        return jsonify({"message": "User registered successfully", "role": role}), 201
+    except Exception as e:
+        print("Signup Error:", str(e))
+        return jsonify({"error": str(e)}), 500
+
+
+#Login API
+@app.route('/login', methods=['POST','OPTIONS'])
+@cross_origin(origin="http://localhost:3000", supports_credentials=True)
+def login():
+    print("✅ Received /login request")
+    if request.method == "OPTIONS":
+        return jsonify({"message": "CORS Preflight OK"}), 200
+    try:
+        data = request.json
+        email = data.get("email")
+        password = data.get("password")
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT UserId, FullName, Email, PasswordHash, Role FROM Users WHERE Email = ?", (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user and user[3] == password:  
+            session["user_id"] = user[0]
+            session["email"] = user[2]
+            session["role"] = user[4]
+            session.modified = True
+            print(f"🔹 Session Data: {session}")  
+
+            return jsonify({"message": "Login successful", "role": user[4]}), 200
+        else:
+            return jsonify({"error": "Invalid email or password"}), 401
+
+    except Exception as e:
+        print("❌ Login Error:", str(e))
+        return jsonify({"error": str(e)}), 500
+
+
+#Logout API
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return jsonify({"message": "Logged out successfully"}), 200
+
+#Check-Auth API
+@app.route('/check-auth', methods=['GET'])
+def check_auth():
+    if "user_id" in session:
+        return jsonify({"logged_in": True, "user": {"email": session["email"], "role": session["role"]}})
+    return jsonify({"logged_in": False})
+
 
 # ✅ API Route to Get All Products
 @app.route('/products', methods=['GET'])
@@ -41,7 +148,7 @@ def get_products():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        conn.close()  # ✅ Ensure database connection is closed
+        conn.close()  
 
 # ✅ API Route to Add a Product
 @app.route('/add-product', methods=['POST'])
@@ -49,8 +156,8 @@ def add_product():
     try:
         data = request.json
         name = data.get("name")
-        unit = data.get("unit", 1)  # Default to 1 if not provided
-        price = data.get("price", 50.0)  # Default to 50.0 if not provided
+        unit = data.get("unit", 1)  
+        price = data.get("price", 50.0)  
 
         if not name:
             return jsonify({"error": "Product name is required"}), 400
@@ -60,14 +167,14 @@ def add_product():
             return jsonify({"error": "Database connection failed"}), 500
 
         cursor = conn.cursor()
-        # ✅ Only insert name, unit, and price (ProductId auto-generates)
+        
         cursor.execute("INSERT INTO Products (name, unit, price) VALUES (?, ?, ?)", (name, unit, price))
         conn.commit()
         return jsonify({"message": "Product added successfully", "product": {"name": name, "unit": unit, "price": price}})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        conn.close()  # ✅ Close connection in case of success or failure
+        conn.close()  
 
 @app.route('/edit-product/<int:ProductId>', methods=['PUT'])
 def edit_product(ProductId):
@@ -95,7 +202,7 @@ def edit_product(ProductId):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        conn.close()  # ✅ Always close connection
+        conn.close()  
 
 # ✅ API Route to Delete a Product
 @app.route('/delete-product/<int:ProductId>', methods=['DELETE'])
@@ -109,15 +216,16 @@ def delete_product(ProductId):
         cursor.execute("DELETE FROM Products WHERE ProductId = ?", (ProductId,))
         conn.commit()
 
-        if cursor.rowcount == 0:  # Check if the product was actually deleted
+        if cursor.rowcount == 0:  
             return jsonify({"error": "Product not found"}), 404
 
         return jsonify({"message": "Product deleted successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
-        conn.close()  # ✅ Always close connection
+        conn.close()  
 
 # ✅ Run Flask App
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5001, debug=True)
+
