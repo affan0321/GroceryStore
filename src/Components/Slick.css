@@ -1,0 +1,29 @@
+.slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .slick-slide > div {
+    width: 80%; /* Apply the desired width to the slide */
+    margin: 0 auto; /* Center the content */
+    /* border: 2px solid black; Keep the border you added */
+  }
+
+  .slick-slide > div img{
+    width: 100%;
+    height: 500px;
+  }
+  
+  /* Hide the scrollbar by controlling overflow */
+.slick-track {
+    overflow: hidden !important;
+  }
+  
+  /* Optional: Prevent extra padding/margins that might cause overflow */
+  .slick-list {
+    margin: 0;
+    padding: 0;
+  }
+  

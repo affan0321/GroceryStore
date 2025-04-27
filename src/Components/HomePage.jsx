@@ -1,6 +1,8 @@
 import './HomePage.css'
 import { Link } from "react-router-dom";
 import NavbarCart from './Cart';
+import SimpleSlider from './Slick';
+import BrandsCarousel from './BrandsCarousel';
 export default function HomePage() {
     return (
         <div>
@@ -28,23 +30,16 @@ export default function HomePage() {
             </div>
 
             <div>
-                <div className='div4'>
-                    <img src="https://thumbs.dreamstime.com/b/supermarket-vegetables-vegetable-store-food-grocery-background-59070028.jpg" alt="" />
-                </div>
-                <div className='div5'>
-                    <h1>Fresh Groceries Delivered to <br /> Your Door</h1> <br />
-                    <p>Discover quality products at affordable prices with our convenient online <br /> grocery shoping experience</p> <br />
-                    <button className='btn1'>Shop Now</button>
+                <div>
+                    <SimpleSlider />
                 </div>
             </div>
-            <div>
-                <div class="blue-box">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXpnMQ-aQyxLGD68dIAg-r2rtfsPAfUwjl2Q&s" alt="Grocery Store" class="image"/>
+
+            <div style={{marginTop:"40px"}}>
+                <div>
+                    <BrandsCarousel />
                 </div>
-            
-
             </div>
-
         </div>
 
     );
