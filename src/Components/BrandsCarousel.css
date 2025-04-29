@@ -16,26 +16,77 @@
     height: 500px;
   }
   
-  /* Hide the scrollbar by controlling overflow */
-  .custom-arrow {
-    background: none;
-    border: none;
-    color: black; /* Change to the desired color */
-    font-size: 2rem; /* Adjust size */
-    font-weight: bold;
+  .prev::before {
+    content: " ";
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
     cursor: pointer;
+    display: block;
+  }
+  
+  .next::before {
+    content: " ";
+    border-right: 2px solid #000;
+    border-top: 2px solid #000;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    cursor: pointer;
+    display: block;
+  }
+  
+  .prev {
     position: absolute;
+    left: 30px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: 2;
   }
   
-  .slick-prev {
-    left: 30px; /* Position the left arrow */
+  .next {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
   }
+
+  .slide-box {
+    width: 100px;
+    height: 200px;
+    background-color: #d3d3d3; /* Light gray */
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: black; */
+    border-radius: 10px; /* Optional: adds soft corners */
+    margin: auto;
+    overflow: hidden;
+  }
+
+  /* .slide-box img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  } */
+
+  .slide-box img {
+    width: 10px; /* Decrease width */
+    height: 10px; /* Decrease height */
+    object-fit: contain; /* Ensures the image fits within without cropping */
+    /* margin-top: -120px; */
+}
+
+
+  /* .img1{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  } */
   
-  .slick-next {
-    right: 70px; /* Position the right arrow */
-    /* border: 2px solid black; */
-  }
   
