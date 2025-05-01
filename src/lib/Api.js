@@ -116,14 +116,30 @@ export async function fetchProducts() {
     return res.json();
 }
 
+// export async function addProduct(product) {
+//     const res = await fetch(`${API_URL}/add-product`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(product),
+//     });
+//     return res.json();
+// }
+
 export async function addProduct(product) {
+    console.log("📢 Sending product data:", product); // Debugging log
+
     const res = await fetch(`${API_URL}/add-product`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
     });
-    return res.json();
+
+    const data = await res.json();
+    console.log("📩 Received response:", data); // Debugging log
+
+    return data;
 }
+
 
 export async function updateProduct(productId, product) {
     const res = await fetch(`${API_URL}/edit-product/${productId}`, {

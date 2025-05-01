@@ -7,6 +7,7 @@ import Login from "./Components/Login";
 // import Admin from "./components/Admin"; // Replace with your Admin component
 import Admin from "./Components/Admin";
 import HomePage from "./Components/HomePage";
+import Fruits from "./Components/Fruits";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/fruits" element={<Fruits />} />
         </Routes>
         </div>
     );
