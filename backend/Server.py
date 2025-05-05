@@ -83,12 +83,47 @@ def signup():
 
 
 #Login API
+# @app.route('/login', methods=['POST','OPTIONS'])
+# @cross_origin(origin="http://localhost:3000", supports_credentials=True)
+# def login():
+#     print("✅ Received /login request")
+#     if request.method == "OPTIONS":
+#         return jsonify({"message": "CORS Preflight OK"}), 200
+#     try:
+#         data = request.json
+#         email = data.get("email")
+#         password = data.get("password")
+
+#         conn = get_db_connection()
+#         cursor = conn.cursor()
+#         cursor.execute("SELECT UserId, FullName, Email, PasswordHash, Role FROM Users WHERE Email = ?", (email,))
+#         user = cursor.fetchone()
+#         conn.close()
+
+#         if user and user[3] == password:  
+#             session["user_id"] = user[0]
+#             session["email"] = user[2]
+#             session["role"] = user[4]
+#             session.modified = True
+#             print(f"🔹 Session Data: {session}")  
+
+#             return jsonify({"message": "Login successful", "role": user[4]}), 200
+#         else:
+#             return jsonify({"error": "Invalid email or password"}), 401
+
+#     except Exception as e:
+#         print("❌ Login Error:", str(e))
+#         return jsonify({"error": str(e)}), 500
+
+
 @app.route('/login', methods=['POST','OPTIONS'])
 @cross_origin(origin="http://localhost:3000", supports_credentials=True)
 def login():
     print("✅ Received /login request")
+
     if request.method == "OPTIONS":
         return jsonify({"message": "CORS Preflight OK"}), 200
+
     try:
         data = request.json
         email = data.get("email")
@@ -105,7 +140,8 @@ def login():
             session["email"] = user[2]
             session["role"] = user[4]
             session.modified = True
-            print(f"🔹 Session Data: {session}")  
+
+            print(f"🔹 Session Data After Login: {session}")  # Debugging Output
 
             return jsonify({"message": "Login successful", "role": user[4]}), 200
         else:
@@ -123,32 +159,18 @@ def logout():
     return jsonify({"message": "Logged out successfully"}), 200
 
 #Check-Auth API
+# @app.route('/check-auth', methods=['GET'])
+# def check_auth():
+#     if "user_id" in session:
+#         return jsonify({"logged_in": True, "user": {"email": session["email"], "role": session["role"]}})
+#     return jsonify({"logged_in": False})
+
 @app.route('/check-auth', methods=['GET'])
 def check_auth():
     if "user_id" in session:
         return jsonify({"logged_in": True, "user": {"email": session["email"], "role": session["role"]}})
     return jsonify({"logged_in": False})
 
-
-# ✅ API Route to Get All Products
-# @app.route('/products', methods=['GET'])
-# def get_products():
-#     conn = get_db_connection()
-#     if not conn:
-#         return jsonify({"error": "Database connection failed"}), 500
-
-#     try:
-#         cursor = conn.cursor()
-#         cursor.execute("SELECT ProductId, name, unit, price FROM Products")
-#         products = [
-#             {"ProductId": row[0], "name": row[1], "unit": row[2], "price": row[3]}
-#             for row in cursor.fetchall()
-#         ]
-#         return jsonify(products)
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-#     finally:
-#         conn.close()  
 
 @app.route('/products', methods=['GET'])
 def get_products():
@@ -169,32 +191,6 @@ def get_products():
     return jsonify(products)
 
 
-# ✅ API Route to Add a Product
-# @app.route('/add-product', methods=['POST'])
-# def add_product():
-#     try:
-#         data = request.json
-#         name = data.get("name")
-#         unit = data.get("unit", 1)  
-#         price = data.get("price", 50.0)  
-
-#         if not name:
-#             return jsonify({"error": "Product name is required"}), 400
-
-#         conn = get_db_connection()
-#         if not conn:
-#             return jsonify({"error": "Database connection failed"}), 500
-
-#         cursor = conn.cursor()
-        
-#         cursor.execute("INSERT INTO Products (name, unit, price) VALUES (?, ?, ?)", (name, unit, price))
-#         conn.commit()
-#         return jsonify({"message": "Product added successfully", "product": {"name": name, "unit": unit, "price": price}})
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
-#     finally:
-#         conn.close()  
-
 @app.route('/add-product', methods=['POST'])
 def add_product():
     try:
@@ -208,6 +204,10 @@ def add_product():
         # Ensure all required fields are present
         if not name or not category or not imageURL:
             return jsonify({"error": "Product name, category, and image are required"}), 400
+        
+        if category == "Fruits":
+            category = "Fresh & Produce"
+            
 
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -222,7 +222,6 @@ def add_product():
         return jsonify({"error": str(e)}), 500
     finally:
         conn.close()
-
 
 
 @app.route('/edit-product/<int:ProductId>', methods=['PUT'])
@@ -278,3 +277,84 @@ def delete_product(ProductId):
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5001, debug=True)
 
+
+# ✅ API Route to Get All Products
+# @app.route('/products', methods=['GET'])
+# def get_products():
+#     conn = get_db_connection()
+#     if not conn:
+#         return jsonify({"error": "Database connection failed"}), 500
+
+#     try:
+#         cursor = conn.cursor()
+#         cursor.execute("SELECT ProductId, name, unit, price FROM Products")
+#         products = [
+#             {"ProductId": row[0], "name": row[1], "unit": row[2], "price": row[3]}
+#             for row in cursor.fetchall()
+#         ]
+#         return jsonify(products)
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+#     finally:
+#         conn.close()  
+
+
+# @app.route('/add-product', methods=['POST'])
+# def add_product():
+#     try:
+#         data = request.json
+#         name = data.get("name")
+#         unit = data.get("unit", 1)  
+#         price = data.get("price", 50.0)  
+#         category = data.get("category")  
+
+#         # Replace "Fruits" with "Fresh Produce"
+#         if category == "Fruits":
+#             category = "Fresh Produce"
+
+#         imageURL = data.get("imageURL")  
+
+#         if not name or not category or not imageURL:
+#             return jsonify({"error": "Product name, category, and image are required"}), 400
+
+#         conn = get_db_connection()
+#         cursor = conn.cursor()
+
+#         cursor.execute("INSERT INTO Products (name, unit, price, category, imageURL) VALUES (?, ?, ?, ?, ?)", 
+#                        (name, unit, price, category, imageURL))
+#         conn.commit()
+
+#         return jsonify({"message": "Product added successfully"})
+#     except Exception as e:
+#         print("❌ Error adding product:", str(e))
+#         return jsonify({"error": str(e)}), 500
+#     finally:
+#         conn.close()
+
+
+
+# ✅ API Route to Add a Product
+# @app.route('/add-product', methods=['POST'])
+# def add_product():
+#     try:
+#         data = request.json
+#         name = data.get("name")
+#         unit = data.get("unit", 1)  
+#         price = data.get("price", 50.0)  
+
+#         if not name:
+#             return jsonify({"error": "Product name is required"}), 400
+
+#         conn = get_db_connection()
+#         if not conn:
+#             return jsonify({"error": "Database connection failed"}), 500
+
+#         cursor = conn.cursor()
+        
+#         cursor.execute("INSERT INTO Products (name, unit, price) VALUES (?, ?, ?)", (name, unit, price))
+#         conn.commit()
+#         return jsonify({"message": "Product added successfully", "product": {"name": name, "unit": unit, "price": price}})
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+#     finally:
+#         conn.close()  
