@@ -156,3 +156,16 @@ export async function deleteProduct(productId) {
     });
     return res.json();
 }
+
+export async function checkAuth() {
+    try {
+        const response = await fetch("http://127.0.0.1:5001/check-auth", {
+            credentials: "include", // Necessary for session-based authentication
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Auth check failed:", error);
+        return { logged_in: false };
+    }
+}
+

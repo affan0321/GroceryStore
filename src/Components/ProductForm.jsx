@@ -66,9 +66,10 @@ export default function ProductForm({ selectedProduct, onProductAdded }) {
             <input type="text" name="name" placeholder="Product Name" value={formData.name} onChange={handleChange} required />
             <input type="text" name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
             <select name="category" value={formData.category} onChange={handleChange}>
-                <option value="Fruits">Fruits</option>
-                <option value="Vegetables">Vegetables</option>
-                <option value="Dairy">Dairy</option>
+            <option value="Fresh Produce">Fresh Produce</option>
+            <option value="Dairy & Frozen">Dairy & Frozen</option>
+            <option value="Pantry Essentials">Pantry Essentials</option>
+            <option value="Bakery & Snacks">Bakery & Snacks</option>
             </select>
             <input type="text" name="imageURL" placeholder="Image URL" value={formData.imageURL} onChange={handleChange} required />
             <button type="submit">{selectedProduct ? "Update Product" : "Add Product"}</button>

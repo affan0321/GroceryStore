@@ -277,7 +277,7 @@ export default function Signup() {
                 if (response.role === "admin") {
                     navigate("/admin");
                 } else {
-                    navigate("/HomePage");
+                    navigate("/");
                 }
             }
         } catch (error) {
