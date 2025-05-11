@@ -103,6 +103,41 @@ export default function Admin() {
                setSelectedProduct(product);
          };
 
+         const [orders, setOrders] = useState([]);
+
+        //  const fetchOrders = async () => {
+        //      try {
+        //          const response = await fetch("http://127.0.0.1:5001/orders");
+        //          const data = await response.json();
+        //          setOrders(data);
+        //      } catch (error) {
+        //          console.error("Error fetching orders:", error);
+        //      }
+        //  };
+     
+         
+        const fetchOrders = async () => {
+            try {
+                const response = await fetch("http://127.0.0.1:5001/orders");
+                
+                // ✅ Ensure response is valid JSON
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                setOrders(data);
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+        };
+
+        useEffect(() => {
+            fetchOrders();
+        }, []);
+       
+        
+
     return (
         <div>
             <h2>{selectedProduct ? "Edit Product" : "Add a Product"}</h2>
@@ -135,6 +170,35 @@ export default function Admin() {
                     ))}
                 </tbody>
             </table>
+
+            <div>
+            <h2>Order List</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Total</th>
+                        <th>Order Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orders.map((order) => (
+                        <tr key={order.OrderId}>
+                            <td>{order.OrderId}</td>
+                            <td>{order.CustomerName}</td>
+                            <td>{order.Email}</td>
+                            <td>{order.Address}</td>
+                            <td>${order.Total}</td>
+                            <td>{order.OrderDate}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>       
+
         </div>
     );
 }

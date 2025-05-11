@@ -136,11 +136,11 @@ export default function App() {
                 <div className="div1">
                     <h1>Green Store</h1>
                     <ul className="ul">
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/freshProducts">Fresh & Produce</Link></li>
-                        <li><Link to="/Dairy">Dairy & Frozen</Link></li>
-                        <li><Link to="/Pantry">Pantry Essentials</Link></li>
-                        <li><Link to="/Bakery">Bakery & Snacks</Link></li>
+                        <li><Link className="l1" style={{textDecoration:"none"}} to="/">Home</Link></li>
+                        <li><Link className="l1" style={{textDecoration:"none"}} to="/freshProducts">Fresh & Produce</Link></li>
+                        <li><Link className="l1" style={{textDecoration:"none"}} to="/Dairy">Dairy & Frozen</Link></li>
+                        <li><Link className="l1" style={{textDecoration:"none"}} to="/Pantry">Pantry Essentials</Link></li>
+                        <li><Link className="l1" style={{textDecoration:"none"}} to="/Bakery">Bakery & Snacks</Link></li>
                     </ul>
                     <div className="div2">
                         <Link className="link" to="/signup">Signup</Link>

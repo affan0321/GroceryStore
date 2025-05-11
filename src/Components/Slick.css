@@ -6,7 +6,7 @@
   
   
   .slick-slide > div {
-    width: 80%; /* Apply the desired width to the slide */
+    width: 90%; /* Apply the desired width to the slide */
     margin: 0 auto; /* Center the content */
     /* border: 2px solid black; Keep the border you added */
   }

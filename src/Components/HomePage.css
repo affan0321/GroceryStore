@@ -11,7 +11,7 @@ body{
 }
 
 .div1 h1{
-    color: rgb(5, 71, 5);
+    color: rgb(12, 119, 12);
 }
 
 .div2 {
@@ -25,6 +25,11 @@ body{
   font-size: 16px;
   padding-top: 10px;
   text-decoration: none;
+  background-color: greenyellow;
+  border-radius: 20px;
+  width: 100px;
+  text-align: center;
+  
 }
 
 .div1 {
@@ -32,9 +37,10 @@ body{
   justify-content: center;
   align-items: center;
   gap: 80px;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   height: 70px;
+  
 }
 
 .ul{
@@ -47,12 +53,48 @@ body{
     cursor: pointer;
 }
 
+.l1:hover{
+  border-bottom: 2px solid greenyellow;
+}
+
 .div3{
-    background-color: #4dff00;
+    background-color: #fff;
 }
 
 .div4{
   width: 250px;
   height: 40px;
   background-color: aliceblue;
+}
+
+.img1{
+  position: relative;
+}
+
+.h1{
+  position:absolute;
+  top: 1000px;
+  right: 500px;
+  color: #fff;
+  font-size: 58px;
+}
+
+.btn5{
+  position: absolute;
+  top: 1090px;
+  right: 610px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  background-color: greenyellow;
+}
+
+.div4{
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 450px;
+  margin-top: 40px;
 }
