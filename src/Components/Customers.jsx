@@ -6,7 +6,7 @@ const testimonials = [
     {
         quote: "Shopping here has been a game-changer! Every item is fresh, and you can really tell they source high-quality products. The staff is always helpful, making sure I find everything I need. This is definitely my go-to grocery store!",
         name: "Tamar Mendelson",
-        designation: "Restaurant Critic",
+        designation: "Store Critic",
         src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop",
     },
     {

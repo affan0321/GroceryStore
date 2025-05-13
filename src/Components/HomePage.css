@@ -98,3 +98,57 @@ body{
   margin-bottom: 450px;
   margin-top: 40px;
 }
+
+.div5{
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.div5 h1{
+position: absolute;
+top: 110px;
+left: 400px;
+color: #FFFFFF;
+
+}
+
+.btn6{
+  position: absolute;
+  top: 200px;
+  right: 500px;
+  width: 200px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  background-color: greenyellow;
+}
+
+.div6{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  gap: 30px;
+  
+}
+
+.div7{
+  width: 400px;
+  height: 40px;
+  /* background-color: aquamarine; */
+}
+
+.div8{
+  background-color: white; /* Ensures a clean, professional look */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+  padding: 20px; 
+  border-radius: 8px; /* Smooths the corners */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.div8:hover{
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
