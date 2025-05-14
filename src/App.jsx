@@ -103,6 +103,7 @@ import NavbarCart from "./Components/Cart";
 import Dairy from "./Components/Dairy";
 import Pantry from "./Components/Pantry";
 import Bakery from "./Components/Bakery";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
     const [cartItems, setCartItems] = useState([]);
@@ -132,6 +133,7 @@ export default function App() {
 
     return (
         <div>
+             {/* <ToastContainer autoClose={3000} position="top-right" /> */}
             <div className="div3">
                 <div className="div1">
                     <h1>Green Store</h1>

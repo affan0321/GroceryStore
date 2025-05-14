@@ -36,6 +36,7 @@
 import { useState, useEffect } from "react";
 import { fetchProducts } from "../lib/Api";
 
+
 export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCart function
     const [dairy, setDairy] = useState([]);
 
@@ -48,6 +49,7 @@ export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCa
         loadProducts();
     }, []);
 
+   
     return (
         <div>
             <h2>Dairy</h2>
@@ -69,3 +71,53 @@ export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCa
         </div>
     );
 }
+
+
+// import { useState, useEffect } from "react";
+// import { fetchProducts } from "../lib/Api";
+// import { toast, ToastContainer } from "react-toastify"; // ✅ Import Toastify
+// import "react-toastify/dist/ReactToastify.css"; // ✅ Import Toast CSS
+// import "./FreshProduce.css";
+
+// export default function FreshProduce({ addToCart }) {
+//     const [dairy, setDairy] = useState([]);
+
+//     useEffect(() => {
+//         const loadProducts = async () => {
+//             const data = await fetchProducts();
+//             setDairy(data.filter(product => product.category.trim().toLowerCase() === "dairy & frozen"));
+//         };
+
+//         loadProducts();
+//     }, []);
+
+//     const handleAddToCart = (product) => {
+//         addToCart(product);
+//         toast.success("Item has been added to the cart successfully!"); // ✅ Show toast notification
+//     };
+
+//     return (
+//         <div>
+//             <h2>Dairy</h2>
+
+//             {/* ✅ ToastContainer for displaying notifications */}
+//             <ToastContainer autoClose={3000} position="top-right" />
+
+//             <div style={{ display: "flex", flexWrap: "wrap", gap: "20px", width: "90%", margin: "0 auto" }}>
+//                 {dairy.map((product) => (
+//                     <div className="card" key={product.ProductId}>
+//                         <span className="badge">Fresh</span>
+//                         <img src={product.imageURL} alt={product.name} />
+//                         <div className="card-body">
+//                             <h3 className="card-title">{product.name}</h3>
+//                             <p className="card-price">${product.price}</p>
+//                             <button className="card-button" onClick={() => handleAddToCart(product)}>
+//                                 Add to Cart
+//                             </button>
+//                         </div>
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
+//     );
+// }

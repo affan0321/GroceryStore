@@ -1,0 +1,121 @@
+/* General Container Styling */
+.admin-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Headings */
+h2, h3 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Forms */
+/* Form Container */
+.product-form {
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Form Labels */
+.product-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input Fields */
+.product-form input,
+.product-form select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.product-form input:focus,
+.product-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit Button */
+.product-form button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border: none;
+}
+
+.product-form button:hover {
+    background: #0056b3;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #007bff;
+    color: white;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-button {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Table Hover Effects */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}

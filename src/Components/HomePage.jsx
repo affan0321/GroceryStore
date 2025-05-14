@@ -48,13 +48,13 @@ export default function HomePage() {
             </div>
 
             <div>
-                <h1 style={{ textAlign: "center" }}>Trending Products</h1><br />
+                <h1 style={{ textAlign: "center",marginTop:"30px",marginBottom:"30px" }}>Trending Products</h1><br />
                 <TrendingProducts /> <br />
             </div>
 
 
 
-            <div className='div5'>
+            <div style={{marginTop:"100px",marginBottom:"100px"}} className='div5'>
                 <div>
                     <img className='img1' style={{ width: "100%", height: "400px", borderRadius: "20px" }} src="https://png.pngtree.com/thumb_back/fh260/background/20240419/pngtree-supermarket-commercial-refrigerators-freezer-showing-frozen-foods-abstract-blur-background-image_15664722.jpg" alt="" />
                     <h1>Freshly Baked & Farm Fresh <br /> The Perfect Grocery Duo</h1>
@@ -62,12 +62,12 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <div>
-                <h1 style={{ textAlign: "center" }}>Top Selling</h1><br />
+            <div style={{marginTop:"30px",marginBottom:"100px"}}>
+                <h1 style={{ textAlign: "center",marginTop:"30px",marginBottom:"30px" }}>Top Selling</h1><br />
                 <TopSelling /> <br />
             </div>
 
-            <div style={{ width: "80%", margin: "0 auto", marginTop: "30px", marginBottom: "30px" }}>
+            <div style={{ width: "80%", margin: "0 auto", marginTop: "30px", marginBottom: "100px" }}>
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "30px" }}>
                     <div className='div8' style={{ height: "240px", borderRadius: "20px" }}>
                         <h1 style={{ textAlign: "center" }}>💳</h1><br />

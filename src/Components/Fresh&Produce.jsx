@@ -33,11 +33,53 @@
 // }
 
 
+// import { useState, useEffect } from "react";
+// import { fetchProducts } from "../lib/Api";
+// import './FreshProduce.css'
+
+// export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCart function
+//     const [fruits, setFruits] = useState([]);
+
+//     useEffect(() => {
+//         const loadProducts = async () => {
+//             const data = await fetchProducts();
+//             setFruits(data.filter(product => product.category.trim().toLowerCase() === "fresh & produce"));
+//         };
+
+//         loadProducts();
+//     }, []);
+
+//     return (
+//         <div>
+//             <h2>Fresh & Produce</h2>
+//             <div style={{ display: "flex", flexWrap: "wrap", gap: "70px",width:"90%",margin:"0 auto" }}>
+//                 {fruits.map((product) => (
+//                     <div className="card" key={product.ProductId}>
+//                     <span className="badge">Fresh</span>
+//                     <img src={product.imageURL} alt={product.name} />
+//                     <div className="card-body">
+//                       <h3 className="card-title">{product.name}</h3>
+//                       <p className="card-price">${product.price}</p>
+//                       <button className="card-button" onClick={() => addToCart(product)}>
+//                         Add to Cart
+//                       </button>
+//                     </div>
+//                   </div>
+
+//                 ))}
+//             </div>
+//         </div>
+//     );
+// }
+
+
 import { useState, useEffect } from "react";
 import { fetchProducts } from "../lib/Api";
-import './FreshProduce.css'
+import { toast } from "react-toastify"; // ✅ Import Toastify
+import "react-toastify/dist/ReactToastify.css"; // ✅ Import Toast CSS
+import './FreshProduce.css';
 
-export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCart function
+export default function FreshProduce({ addToCart }) { 
     const [fruits, setFruits] = useState([]);
 
     useEffect(() => {
@@ -49,23 +91,27 @@ export default function FreshProduce({ addToCart }) { // ✅ Fix: Accept addToCa
         loadProducts();
     }, []);
 
+    const handleAddToCart = (product) => {
+        addToCart(product);
+        // toast.success("Item has been added to the cart successfully!"); // ✅ Show toast notification
+    };
+
     return (
         <div>
             <h2>Fresh & Produce</h2>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "20px",width:"90%",margin:"0 auto" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "70px", width: "90%", margin: "0 auto" }}>
                 {fruits.map((product) => (
                     <div className="card" key={product.ProductId}>
-                    <span className="badge">Fresh</span>
-                    <img src={product.imageURL} alt={product.name} />
-                    <div className="card-body">
-                      <h3 className="card-title">{product.name}</h3>
-                      <p className="card-price">${product.price}</p>
-                      <button className="card-button" onClick={() => addToCart(product)}>
-                        Add to Cart
-                      </button>
+                        <span className="badge">Fresh</span>
+                        <img src={product.imageURL} alt={product.name} />
+                        <div className="card-body">
+                            <h3 className="card-title">{product.name}</h3>
+                            <p className="card-price">${product.price}</p>
+                            <button className="card-button" onClick={() => handleAddToCart(product)}>
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
-                  </div>
-
                 ))}
             </div>
         </div>
