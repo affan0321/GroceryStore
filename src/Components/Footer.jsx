@@ -1,42 +1,52 @@
-import './Footer.css'
-export default function Footer(){
-    return(
-        <div>
-            <div className="div9">
-                <div>
+import './Footer.css';
+
+export default function Footer() {
+    return (
+        <footer className="footer-container">
+            <div className="footer-content">
+                
+                <div className="footer-section">
+                    <h4>More Value, More Joy</h4>
+                    <p>📍 ABC Karachi</p>
+                    <p>📞 Call us: +92 335-1777-464</p>
+                    <p>✉️ Email: <a href="mailto:support@greenstore.com.pk">support@greenstore.com.pk</a></p>
+                </div>
+
+                
+                <div className="footer-section">
+                    <h4>About Green Store</h4>
                     <ul>
-                        <h4>More Value More Joy</h4>
-                        <li>ABC Karachi</li>
-                        <li>Call us at +92 335-1777-464</li>
-                        <li>Email: support@greenstore.com.pk</li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Store Locator</a></li>
+                        <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
-                <div>
+
+                
+                <div className="footer-section">
+                    <h4>Customer Service</h4>
                     <ul>
-                        <h4>About Green Store</h4>
-                        <li>About Us</li>
-                        <li>Store Locator</li>
-                        <li>Blog</li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Return & Exchange</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
                     </ul>
                 </div>
-                <div>
+
+                
+                <div className="footer-section">
+                    <h4>Information</h4>
                     <ul>
-                        <h4>Customer Service</h4>
-                        <li>Contact Us</li>
-                        <li>Return & Exchange</li>
-                        <li>Shipping Policy</li>
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        <h4>Information</h4>
-                        <li>Privacy Policy</li>
-                        <li>Terms & Condition</li>
-                        <li>FAQs</li>
-                        
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">FAQs</a></li>
                     </ul>
                 </div>
             </div>
-        </div>
-    )
+
+            
+            <div className="footer-bottom">
+                <p>© 2025 Green Store. All Rights Reserved.</p>
+            </div>
+        </footer>
+    );
 }

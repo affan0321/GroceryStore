@@ -223,16 +223,30 @@ export default function Admin() {
             setProducts(data);
         };
 
+        // const fetchOrders = async () => {
+        //     try {
+        //         const response = await fetch("http://127.0.0.1:5001/orders");
+        //         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        //         const data = await response.json();
+        //         setOrders(data);
+        //     } catch (error) {
+        //         console.error("Error fetching orders:", error);
+        //     }
+        // };
+
         const fetchOrders = async () => {
-            try {
-                const response = await fetch("http://127.0.0.1:5001/orders");
-                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                const data = await response.json();
-                setOrders(data);
-            } catch (error) {
-                console.error("Error fetching orders:", error);
-            }
-        };
+    try {
+        const response = await fetch("http://127.0.0.1:5001/orders");
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        
+        const data = await response.json();
+        console.log("🔹 Orders Fetched:", data); // ✅ Debugging Output
+        setOrders(data);
+    } catch (error) {
+        console.error("❌ Error fetching orders:", error);
+    }
+};
+
 
         loadProducts();
         fetchOrders();

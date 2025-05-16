@@ -128,8 +128,6 @@ export default function HomePage() {
             <br />
             <br />
 
-            <Footer />
-
         </div>
 
     );
