@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import gsap from "gsap";
-import "./Customers.css"; // Import styles
+import "./Customers.css";
 
 const testimonials = [
     {

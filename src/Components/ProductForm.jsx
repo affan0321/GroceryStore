@@ -1,78 +1,87 @@
+import React, { useState, useEffect } from "react";
+import { TextField, Button, Select, MenuItem, Box } from "@mui/material";
 
-// import { useState } from "react";
-// import { addProduct, updateProduct } from "../lib/Api";
-// import './ProductForm.css'
-
-// export default function ProductForm({ selectedProduct, onProductAdded }) {
-//     const [product, setProduct] = useState({
-//         name: selectedProduct?.name || "",
-//         unit: selectedProduct?.unit || "",
-//         price: selectedProduct?.price || "",
-//     });
-
-//     const handleChange = (e) => {
-//         setProduct({ ...product, [e.target.name]: e.target.value });
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         if (!product.name || !product.unit || !product.price) {
-//             alert("Please fill all fields.");
-//             return;
-//         }
-
-//         if (selectedProduct) {
-//             await updateProduct(selectedProduct.ProductId, product);
-//         } else {
-//             await addProduct(product);
-//         }
-
-//         setProduct({ name: "", unit: "", price: "" });
-//         onProductAdded();
-//     };
-
-//     return (
-//         <form onSubmit={handleSubmit}>
-//             <input type="text" name="name" placeholder="Enter product name" value={product.name} onChange={handleChange} required />
-//             <input type="number" name="unit" placeholder="Enter unit" value={product.unit} onChange={handleChange} required />
-//             <input type="number" name="price" placeholder="Enter price" value={product.price} onChange={handleChange} required />
-//             <button type="submit">{selectedProduct ? "Update Product" : "Add Product"}</button>
-//         </form>
-//     );
-// }
-
-
-import React, { useState } from "react";
-
-export default function ProductForm({ selectedProduct, onProductAdded }) {
+export default function ProductForm({ selectedProduct, onProductAdded, onProductEdited }) {
     const [formData, setFormData] = useState({
-        name: selectedProduct?.name || "",
-        price: selectedProduct?.price || "",
-        category: selectedProduct?.category || "Fruits",
-        imageURL: selectedProduct?.imageURL || ""  // New image field
+        name: "",
+        price: "",
+        category: "Fresh Produce",
+        imageURL: ""  
     });
+
+
+    useEffect(() => {
+        if (selectedProduct) {
+            setFormData(selectedProduct);
+        }
+    }, [selectedProduct]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+    e.preventDefault();
+
+    if (selectedProduct && onProductEdited) {
+        onProductEdited(formData); 
+    } else if (onProductAdded) {
         onProductAdded(formData);
-    };
+    } else {
+        console.error("❌ Error: Missing function for handling product submission");
+    }
+};
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="name" placeholder="Product Name" value={formData.name} onChange={handleChange} required />
-            <input type="text" name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
-            <select name="category" value={formData.category} onChange={handleChange}>
-            <option value="Fresh Produce">Fresh Produce</option>
-            <option value="Dairy & Frozen">Dairy & Frozen</option>
-            <option value="Pantry Essentials">Pantry Essentials</option>
-            <option value="Bakery & Snacks">Bakery & Snacks</option>
-            </select>
-            <input type="text" name="imageURL" placeholder="Image URL" value={formData.imageURL} onChange={handleChange} required />
-            <button type="submit">{selectedProduct ? "Update Product" : "Add Product"}</button>
-        </form>
+        <Box sx={{ width: "100%", maxWidth: "400px", margin: "0 auto", padding: "20px", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", borderRadius: "10px", background: "#fff" }}>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    fullWidth
+                    label="Product Name"
+                    name="name"
+                    variant="outlined"
+                    margin="normal"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                />
+                <TextField
+                    fullWidth
+                    label="Price"
+                    name="price"
+                    type="number"
+                    variant="outlined"
+                    margin="normal"
+                    value={formData.price}
+                    onChange={handleChange}
+                    required
+                />
+                <Select
+                    fullWidth
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    sx={{ marginBottom: "20px" }}
+                >
+                    <MenuItem value="Fresh Produce">Fresh Produce</MenuItem>
+                    <MenuItem value="Dairy & Frozen">Dairy & Frozen</MenuItem>
+                    <MenuItem value="Pantry Essentials">Pantry Essentials</MenuItem>
+                    <MenuItem value="Bakery & Snacks">Bakery & Snacks</MenuItem>
+                </Select>
+                <TextField
+                    fullWidth
+                    label="Image URL"
+                    name="imageURL"
+                    variant="outlined"
+                    margin="normal"
+                    value={formData.imageURL}
+                    onChange={handleChange}
+                    required
+                />
+                <Button fullWidth variant="contained" color="primary" type="submit">
+                    {selectedProduct ? "Update Product" : "Add Product"}
+                </Button>
+            </form>
+        </Box>
     );
 }

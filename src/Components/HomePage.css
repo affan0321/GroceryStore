@@ -138,14 +138,14 @@ color: #FFFFFF;
 .div7{
   width: 400px;
   height: 40px;
-  /* background-color: aquamarine; */
+
 }
 
 .div8{
-  background-color: white; /* Ensures a clean, professional look */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow for depth */
+  background-color: white; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 20px; 
-  border-radius: 8px; /* Smooths the corners */
+  border-radius: 8px; 
   transition: box-shadow 0.3s ease-in-out;
 }
 

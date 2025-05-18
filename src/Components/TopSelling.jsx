@@ -16,13 +16,13 @@ export default function TopSelling() {
   };
 
   var settings = {
-    dots: false, // Disable dots
+    dots: false, 
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     infinite: false,
-    nextArrow: <NextArrow />, // Use the custom right button
-    prevArrow: <PrevArrow />, // Use the custom left button
+    nextArrow: <NextArrow />, 
+    prevArrow: <PrevArrow />, 
   };
 
   return (

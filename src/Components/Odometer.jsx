@@ -24,15 +24,15 @@ export default function Odometer({ targetNumber = 5000, duration = 2 }) {
                             },
                         }
                     );
-                    observerRef.current.disconnect(); // Stop observing after animation starts
+                    observerRef.current.disconnect(); 
                 }
             },
-            { threshold: 0.5 } // Start when at least 50% of the element is visible
+            { threshold: 0.5 }
         );
 
         observerRef.current.observe(numberRef.current);
 
-        return () => observerRef.current.disconnect(); // Cleanup observer on unmount
+        return () => observerRef.current.disconnect();
     }, [targetNumber, duration]);
 
     return (

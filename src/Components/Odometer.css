@@ -1,14 +1,12 @@
 .odometer-container {
     text-align: center;
     padding: 50px 20px;
-    /* background-color: #00182f; */
     color: greenyellow;
     font-size: 120px;
     font-family: "Lato", sans-serif;
 }
 
 .odometer {
-    /* font-size: calc(2rem + 5vw); */
     font-size: 30px;
     font-weight: bold;
     color: #e7f3e8;

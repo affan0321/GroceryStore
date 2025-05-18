@@ -6,9 +6,8 @@
   
   
   .slick-slide > div {
-    width: 90%; /* Apply the desired width to the slide */
-    margin: 0 auto; /* Center the content */
-    /* border: 2px solid black; Keep the border you added */
+    width: 90%; 
+    margin: 0 auto; 
   }
 
   .slick-slide > div img{
@@ -16,12 +15,10 @@
     height: 500px;
   }
   
-  /* Hide the scrollbar by controlling overflow */
 .slick-track {
     overflow: hidden !important;
   }
   
-  /* Optional: Prevent extra padding/margins that might cause overflow */
   .slick-list {
     margin: 0;
     padding: 0;
