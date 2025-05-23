@@ -38,7 +38,7 @@ export default function FreshProduce({ addToCart }) {
 
     return (
         <div>
-            <h2>Dairy</h2>
+            <h2 style={{color:"black"}}>Dairy</h2>
 
             
             <div style={{marginBottom:"30px"}}>

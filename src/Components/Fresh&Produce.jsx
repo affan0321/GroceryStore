@@ -38,7 +38,7 @@ export default function FreshProduce({ addToCart }) {
 
     return (
         <div>
-            <h2>Fresh & Produce</h2>
+            <h2 style={{color:"black"}}>Fresh & Produce</h2>
 
             <div style={{marginBottom:"30px"}}>
             <SearchBar  onSearch={handleSearch} />

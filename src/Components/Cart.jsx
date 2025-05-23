@@ -76,7 +76,7 @@ const handlePlaceOrder = async () => {
     return (
         <>
             
-            <ToastContainer autoClose={3000} position="top-right" />
+            <ToastContainer autoClose={3000} position="bottom-right" />
 
             <Box>
                 <IconButton color="inherit" onClick={toggleCartDrawer(true)}>

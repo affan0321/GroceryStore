@@ -14,7 +14,7 @@ export default function SearchBar({ onSearch }) {
         <TextField
             fullWidth
             variant="outlined"
-            placeholder="Search for fresh produce..."
+            placeholder="Search Products..."
             value={query}
             onChange={handleInputChange}
             sx={{
